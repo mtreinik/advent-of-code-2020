@@ -32,5 +32,11 @@ This algorithm has complexity `O(n^2)`.
 $ nvm use
 $ ./day1.js < simple-input-day1.txt
 part 1: 514579 part 2: 241861950
-$
+```
+
+or
+
+```
+$ ./day1.awk < simple-input-day1.txt
+part 1: 514579 part 2: 241861950
 ```
