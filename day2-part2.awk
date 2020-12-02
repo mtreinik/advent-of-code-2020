@@ -2,11 +2,12 @@
 
 {
   split($1, limits, "-")
-  split($2, characterToFind, ":")
+  gsub(/:/, "", $2)
+  characterToFind = $2
   split($3, characters, "")
   count = 0
-  for (i in characters) {
-    if (characters[i] == characterToFind[1] && (i == limits[1] || i == limits[2])) {
+  for (i = 1; i <= 2; i++) {
+    if (characters[limits[i]] == characterToFind) {
       count++
     }
   }
