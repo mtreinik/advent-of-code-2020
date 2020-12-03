@@ -1,6 +1,12 @@
 #!/usr/bin/env node
-const rl = require('./rl')
-const numbers = []
+const aoc = require('./aoc')
+
+aoc.parseLine = (line) => parseInt(line, 10)
+
+aoc.preProcessLines = (numbers) => {
+  numbers.sort((a, b) => a - b)
+  return numbers
+}
 
 function findProductOfTwoNumbersWithSum(numbers, sumToFind) {
   let first = 0
@@ -27,16 +33,10 @@ function findProductOfThreeNumbersWithSum(numbers, number, result, sumToFind) {
   }
 }
 
-rl.on('line', (line) => numbers.push(parseInt(line, 10)))
-
-rl.on('close', () => {
-  // sort numbers in ascending order
-  numbers.sort((a, b) => a - b)
-
-  const result1 = findProductOfTwoNumbersWithSum(numbers, 2020)
-  const result2 = numbers.reduce((result, number) =>
-    findProductOfThreeNumbersWithSum(numbers, number, result, 2020)
+aoc.getResult1 = (lines) => findProductOfTwoNumbersWithSum(lines, 2020)
+aoc.getResult2 = (lines) =>
+  lines.reduce((result, number) =>
+    findProductOfThreeNumbersWithSum(lines, number, result, 2020)
   )
 
-  console.log('part 1:', result1, 'part 2:', result2)
-})
+aoc.run()
