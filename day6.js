@@ -43,7 +43,7 @@ aoc.getResult2 = (groups) => {
       const chars = line.split('')
       if (haveAnswers) {
         const charsInBoth = []
-        chars.forEach(char => {
+        chars.forEach((char) => {
           if (uniqueAnswers.includes(char)) {
             charsInBoth.push(char)
           }
