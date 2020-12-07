@@ -12,23 +12,39 @@ function incrementIfTrue(counter, condition) {
   return condition ? counter + 1 : counter
 }
 
-aoc.getResult1 = (lines) => {
-  let valid = 0
-
-  let foundFields = []
+function parsePassports(lines) {
+  const passports = []
+  let passport = []
   lines.forEach((line) => {
     if (line === '') {
-      valid = incrementIfTrue(valid, hasAllKeys(foundFields, REQUIRED_FIELDS))
-      foundFields = []
+      passports.push(passport)
+      passport = []
     } else {
+      passport.push(line)
+    }
+  })
+  if (passport.length > 0) {
+    passports.push(passport)
+  }
+  return passports
+}
+
+aoc.preProcessLines = parsePassports
+
+aoc.getResult1 = (passports) => {
+  let valid = 0
+
+  passports.forEach((passport) => {
+    let foundFields = []
+    passport.forEach((line) => {
       const fields = line.split(' ')
       fields.forEach((field) => {
         const [fieldName] = field.split(':')
         foundFields[fieldName] = true
       })
-    }
+    })
+    valid = incrementIfTrue(valid, hasAllKeys(foundFields, REQUIRED_FIELDS))
   })
-  valid = incrementIfTrue(valid, hasAllKeys(foundFields, REQUIRED_FIELDS))
   return valid
 }
 
@@ -64,15 +80,12 @@ function isValidFieldValue(fieldName, fieldValue) {
   return false
 }
 
-aoc.getResult2 = (lines) => {
+aoc.getResult2 = (passports) => {
   let valid = 0
 
-  let validFields = []
-  lines.forEach((line) => {
-    if (line === '') {
-      valid = incrementIfTrue(valid, hasAllKeys(validFields, REQUIRED_FIELDS))
-      validFields = []
-    } else {
+  passports.forEach((passport) => {
+    let validFields = []
+    passport.forEach((line) => {
       const fields = line.split(' ')
       fields.forEach((field) => {
         const [fieldName, fieldValue] = field.split(':')
@@ -81,9 +94,9 @@ aoc.getResult2 = (lines) => {
           validFields[fieldName] = true
         }
       })
-    }
+    })
+    valid = incrementIfTrue(valid, hasAllKeys(validFields, REQUIRED_FIELDS))
   })
-  valid = incrementIfTrue(valid, hasAllKeys(validFields, REQUIRED_FIELDS))
   return valid
 }
 
