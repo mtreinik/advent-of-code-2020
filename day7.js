@@ -1,33 +1,15 @@
 #!/usr/bin/env node
 const aoc = require('./aoc')
 
-function isContaining(bags, containingBag, bagWeAreLookingFor) {
-  const containedBags = bags[containingBag]
-  if (!containedBags || containedBags.length === 0) {
+function isBagFoundInside(bags, outerBag, bagToFind) {
+  const innerBags = bags[outerBag]
+  if (!innerBags || innerBags.length === 0) {
     return false
   }
-  return containedBags.some(
-    (containedBag) =>
-      containedBag === bagWeAreLookingFor ||
-      isContaining(bags, containedBag, bagWeAreLookingFor)
+  return innerBags.some(
+    (innerBag) =>
+      innerBag === bagToFind || isBagFoundInside(bags, innerBag, bagToFind)
   )
-}
-
-function getNumberOfContainedBags(bags, numbers, color) {
-  const containedBags = bags[color]
-  const containedBagsNumbers = numbers[color]
-  if (!containedBags || containedBags.length === 0) {
-    return 0
-  }
-  let counter = 0
-  for (let i = 0; i < containedBags.length; i++) {
-    const containedBag = containedBags[i]
-    const factor = containedBagsNumbers[i]
-    const numContained = getNumberOfContainedBags(bags, numbers, containedBag)
-    const numToAdd = factor * (1 + numContained)
-    counter += numToAdd
-  }
-  return counter
 }
 
 aoc.getResult1 = (lines) => {
@@ -35,55 +17,59 @@ aoc.getResult1 = (lines) => {
 
   let result = 0
   lines.forEach((line) => {
-    const containingBag = line.replace(/ contain .*/, '').replace(/ bags/, '')
-    const contents = line.replace(/.* contain /, '')
+    const [_, outerBag, contents] = /(.*) bags contain (.*)/.exec(line)
     if (contents !== 'no other bags.') {
-      const containedBags = contents.split(', ')
-      containedBags.forEach((containedBag) => {
-        const num = containedBag.replace(/ .*/, '')
-        const color = containedBag.replace(/\d+ /, '').replace(/ bags?.?/, '')
-        if (!bags[containingBag]) {
-          bags[containingBag] = []
+      const innerBags = contents.split(', ')
+      innerBags.forEach((innerBag) => {
+        const color = /(\d+) (.*) bags?.?/.exec(innerBag)[2]
+        if (!bags[outerBag]) {
+          bags[outerBag] = []
         }
-        bags[containingBag].push(color)
+        bags[outerBag].push(color)
       })
     }
   })
 
-  Object.keys(bags).forEach((containingBag) => {
-    if (isContaining(bags, containingBag, 'shiny gold')) {
+  Object.keys(bags).forEach((outerBag) => {
+    if (isBagFoundInside(bags, outerBag, 'shiny gold')) {
       result++
     }
   })
   return result
 }
 
+function getNumberOfInnerBags(bags, color) {
+  const innerBags = bags[color]
+  if (!innerBags || innerBags.length === 0) {
+    return 0
+  }
+  let counter = 0
+  for (let i = 0; i < innerBags.length; i++) {
+    const { color: innerBagColor, num: factor } = innerBags[i]
+    const numberOfInnerBags = getNumberOfInnerBags(bags, innerBagColor)
+    counter += factor * (1 + numberOfInnerBags)
+  }
+  return counter
+}
+
 aoc.getResult2 = (lines) => {
   const bags = {}
-  const numbers = {}
 
   lines.forEach((line) => {
-    const containingBag = line.replace(/ contain .*/, '').replace(/ bags/, '')
-    const contents = line.replace(/.* contain /, '')
+    const [_, outerBag, contents] = /(.*) bags contain (.*)/.exec(line)
     if (contents !== 'no other bags.') {
-      const containedBags = contents.split(', ')
-      containedBags.forEach((containedBag) => {
-        const num = containedBag.replace(/ .*/, '')
-        const color = containedBag.replace(/\d+ /, '').replace(/ bags?.?/, '')
-        if (!bags[containingBag]) {
-          bags[containingBag] = []
+      const innerBags = contents.split(', ')
+      innerBags.forEach((innerBag) => {
+        const [_, num, color] = /(\d+) (.*) bags?.?/.exec(innerBag)
+        if (!bags[outerBag]) {
+          bags[outerBag] = []
         }
-        if (!numbers[containingBag]) {
-          numbers[containingBag] = []
-        }
-        bags[containingBag].push(color)
-        numbers[containingBag].push(num)
+        bags[outerBag].push({ color, num })
       })
     }
   })
 
-  const result = getNumberOfContainedBags(bags, numbers, 'shiny gold')
-  return result
+  return getNumberOfInnerBags(bags, 'shiny gold')
 }
 
 aoc.run()
