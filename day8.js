@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 const aoc = require('./aoc')
 
+function parseLine(line) {
+  const [instr, valStr] = line.split(' ')
+  const val = parseInt(valStr, 10)
+  return { instr, val }
+}
+
 function runProgram(lines) {
   let acc = 0
   let addr = 0
   let runLines = []
   while (!runLines[addr] && addr < lines.length) {
     runLines[addr] = true
-    const [instr, valStr] = lines[addr].split(' ')
-    const val = parseInt(valStr, 10)
+    const { instr, val } = parseLine(lines[addr])
     switch (instr) {
       case 'nop':
         addr++
@@ -32,8 +37,7 @@ aoc.getResult1 = (lines) => {
 
 aoc.getResult2 = (lines) => {
   for (let i = 0; i < lines.length; i++) {
-    const [instr, valStr] = lines[i].split(' ')
-    const val = parseInt(valStr, 10)
+    const { instr, val } = parseLine(lines[i])
     const program = [...lines]
     let changed = false
     switch (instr) {
