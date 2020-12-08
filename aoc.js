@@ -14,7 +14,6 @@ module.exports = {
 
     const rl = readline.createInterface({
       input: process.stdin,
-      //output: process.stdout,
     })
 
     rl.on('line', (line) => lines.push(this.parseLine(line)))
