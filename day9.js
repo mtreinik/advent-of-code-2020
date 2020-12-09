@@ -35,7 +35,7 @@ aoc.getResult2 = (numbers) => {
       let min = Number.MAX_SAFE_INTEGER
       let max = 0
       let sum = 0
-      for (let i = first; i <= last; i++) {
+      for (let i = first; i <= last && sum < sumToFind; i++) {
         sum += numbers[i]
         min = Math.min(min, numbers[i])
         max = Math.max(max, numbers[i])
