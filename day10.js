@@ -3,11 +3,6 @@ const aoc = require('./aoc')
 
 aoc.parseLine = (line) => parseInt(line, 10)
 
-aoc.preProcessLines = (numbers) => {
-  numbers.sort((a, b) => a - b)
-  return numbers
-}
-
 function getNextAdapter(adapters, joltage) {
   let min = Number.MAX_SAFE_INTEGER
   adapters.forEach((adapter) => {
