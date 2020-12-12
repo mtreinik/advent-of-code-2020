@@ -95,7 +95,7 @@ aoc.getResult2 = (lines) => {
         }
       }
     }
-    console.log(row, chars)
+    // console.log(row, chars)
   }
 }
 
