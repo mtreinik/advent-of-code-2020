@@ -10,7 +10,7 @@ function parseLine(line) {
 function runProgram(lines) {
   let acc = 0
   let addr = 0
-  let runLines = []
+  const runLines = []
   while (!runLines[addr] && addr < lines.length) {
     runLines[addr] = true
     const { instr, val } = parseLine(lines[addr])

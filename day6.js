@@ -23,7 +23,7 @@ aoc.preProcessLines = parseGroups
 aoc.getResult1 = (groups) => {
   let result = 0
   groups.forEach((group) => {
-    let uniqueAnswers = {}
+    const uniqueAnswers = {}
     group.forEach((line) => {
       const chars = line.split('')
       chars.forEach((char) => (uniqueAnswers[char] = true))

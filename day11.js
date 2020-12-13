@@ -28,7 +28,7 @@ function countAdjacentSeatsOccupied(lines, x, y) {
 }
 
 function moveSeats(lines) {
-  let newLines = []
+  const newLines = []
   for (let y = 0; y < lines.length; y++) {
     newLines[y] = []
     for (let x = 0; x < lines[y].length; x++) {
@@ -58,6 +58,7 @@ function countOccupiedSeatsOnLine(line) {
   return counter
 }
 
+// eslint-disable-next-line no-unused-vars
 function showSeats(lines) {
   lines.forEach((line) =>
     console.log(line.join(''), countOccupiedSeatsOnLine(line))
@@ -80,7 +81,7 @@ function isSame(oldLines, newLines) {
 aoc.getResult1 = (lines) => {
   let oldLines = lines.map(() => [])
   while (!isSame(oldLines, lines)) {
-    //showSeats(lines)
+    // showSeats(lines)
     const newLines = moveSeats(lines)
     oldLines = lines
     lines = newLines
@@ -121,7 +122,7 @@ function countFirstAdjacentSeatsOccupied(lines, x, y) {
 }
 
 function moveSeatsPart2(lines) {
-  let newLines = []
+  const newLines = []
   for (let y = 0; y < lines.length; y++) {
     newLines[y] = []
     for (let x = 0; x < lines[y].length; x++) {

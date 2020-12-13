@@ -17,7 +17,7 @@ aoc.getResult1 = (lines) => {
 
   let result = 0
   lines.forEach((line) => {
-    const [_, outerBag, contents] = /(.*) bags contain (.*)/.exec(line)
+    const [, outerBag, contents] = /(.*) bags contain (.*)/.exec(line)
     if (contents !== 'no other bags.') {
       const innerBags = contents.split(', ')
       innerBags.forEach((innerBag) => {
@@ -56,11 +56,11 @@ aoc.getResult2 = (lines) => {
   const bags = {}
 
   lines.forEach((line) => {
-    const [_, outerBag, contents] = /(.*) bags contain (.*)/.exec(line)
+    const [, outerBag, contents] = /(.*) bags contain (.*)/.exec(line)
     if (contents !== 'no other bags.') {
       const innerBags = contents.split(', ')
       innerBags.forEach((innerBag) => {
-        const [_, num, color] = /(\d+) (.*) bags?.?/.exec(innerBag)
+        const [, num, color] = /(\d+) (.*) bags?.?/.exec(innerBag)
         if (!bags[outerBag]) {
           bags[outerBag] = []
         }

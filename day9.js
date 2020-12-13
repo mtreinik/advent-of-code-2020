@@ -4,8 +4,8 @@ const aoc = require('./aoc')
 aoc.parseLine = (line) => parseInt(line, 10)
 
 function isValid(numbers, pos, preambleLength) {
-  let first = pos - preambleLength - 1
-  let last = pos - 1
+  const first = pos - preambleLength - 1
+  const last = pos - 1
   const sumToFind = numbers[pos]
   for (let i = first; i <= last; i++) {
     for (let j = first; j <= last; j++) {

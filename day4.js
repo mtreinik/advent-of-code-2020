@@ -35,7 +35,7 @@ aoc.getResult1 = (passports) => {
   let valid = 0
 
   passports.forEach((passport) => {
-    let foundFields = []
+    const foundFields = []
     passport.forEach((line) => {
       const fields = line.split(' ')
       fields.forEach((field) => {
@@ -84,7 +84,7 @@ aoc.getResult2 = (passports) => {
   let valid = 0
 
   passports.forEach((passport) => {
-    let validFields = []
+    const validFields = []
     passport.forEach((line) => {
       const fields = line.split(' ')
       fields.forEach((field) => {
