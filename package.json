@@ -10,10 +10,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "lint": "eslint .",
-    "prettier": "prettier --check ."
+    "lint": "./node_modules/.bin/prettier-standard --lint; ./node_modules/.bin/prettier --write ."
   },
   "devDependencies": {
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "prettier-standard": "^16.4.1"
   }
 }
