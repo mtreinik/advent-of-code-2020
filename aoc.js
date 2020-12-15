@@ -27,8 +27,9 @@ module.exports = {
         console.log('preProcessedLines', preProcessedLines)
       }
       const result1 = this.getResult1(preProcessedLines)
+      console.log('part 1:', result1)
       const result2 = this.getResult2(preProcessedLines)
-      console.log('part 1:', result1, 'part 2:', result2)
+      console.log('part 2:', result2)
     })
   },
 }
