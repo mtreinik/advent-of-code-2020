@@ -38,13 +38,11 @@ aoc.getResult1 = (lines) => {
     numbers.forEach((number) => {
       if (!isValidForSomeRule(rules, number)) {
         errors.push(number)
-      } else {
       }
     })
   }
 
-  const sum = errors.reduce((sum, error) => sum + error, 0)
-  return sum
+  return errors.reduce((sum, error) => sum + error, 0)
 }
 
 function getValidFieldsForPosition(rules, tickets, position) {
