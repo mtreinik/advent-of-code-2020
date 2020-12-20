@@ -2,7 +2,7 @@
 const aoc = require('./aoc')
 
 function getTokens(line) {
-  let tokens = []
+  const tokens = []
   for (let pos = 0; pos < line.length; pos++) {
     const char = line[pos]
     switch (char) {
@@ -14,7 +14,7 @@ function getTokens(line) {
         break
       case ' ':
         break
-      default:
+      default: {
         let token = char
         while (line[pos + 1] && line[pos + 1].toString().match(/[0-9]/)) {
           console.log('  adding ', pos + 1)
@@ -22,6 +22,7 @@ function getTokens(line) {
           pos++
         }
         tokens.push(parseInt(token, 10))
+      }
     }
   }
   return tokens
