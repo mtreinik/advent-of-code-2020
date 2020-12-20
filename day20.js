@@ -34,7 +34,7 @@ function getRightAndBottomEdges(tiles, tileNumber, maxX, maxY) {
 
 function getEdgesAndReverseEdges(tiles, tileNumber, maxX, maxY) {
   const edges = getEdges(tiles, tileNumber, maxX, maxY)
-  const reverseEdges = edges.map(edge => edge.split('').reverse().join(''))
+  const reverseEdges = edges.map((edge) => edge.split('').reverse().join(''))
   return edges.concat(reverseEdges)
 }
 
@@ -52,7 +52,7 @@ function countSameElements(array1, array2) {
 }
 
 aoc.getResult1 = (lines) => {
-  let tiles = {}
+  const tiles = {}
   let lineNum = 0
   let maxY = 0
   let maxX = 0
@@ -76,7 +76,7 @@ aoc.getResult1 = (lines) => {
     const edges = getEdgesAndReverseEdges(tiles, tileNumber, maxX, maxY)
 
     let sameEdgesCount = 0
-    Object.keys(tiles).forEach((otherTileNumber)  => {
+    Object.keys(tiles).forEach((otherTileNumber) => {
       if (tileNumber !== otherTileNumber) {
         const otherTileEdges = getEdges(tiles, otherTileNumber, maxX, maxY)
         sameEdgesCount += countSameElements(edges, otherTileEdges)
@@ -86,8 +86,13 @@ aoc.getResult1 = (lines) => {
     return { tileNumber, sameEdgesCount }
   })
 
-  const cornerTiles = uniqueEdgeCounts.filter(uniqueEdgeCount => uniqueEdgeCount.sameEdgesCount === 2)
-  const cornerProduct = cornerTiles.reduce((product, cornerTile) => product * cornerTile.tileNumber, 1)
+  const cornerTiles = uniqueEdgeCounts.filter(
+    (uniqueEdgeCount) => uniqueEdgeCount.sameEdgesCount === 2
+  )
+  const cornerProduct = cornerTiles.reduce(
+    (product, cornerTile) => product * cornerTile.tileNumber,
+    1
+  )
 
   return cornerProduct
 }
@@ -275,7 +280,7 @@ function countSeaMonsters(map, maxX, maxY) {
 }
 
 aoc.getResult2 = (lines) => {
-  let tiles = {}
+  const tiles = {}
   let lineNum = 0
   let maxY = 0
   let maxX = 0
@@ -373,7 +378,7 @@ aoc.getResult2 = (lines) => {
     row.map((tile) => removeBorders(tile, maxX, maxY))
   )
 
-  let combinedTiles = []
+  const combinedTiles = []
   const rowLength = arrangedTilesWithNoBorders[0].length * (maxX - 2)
   for (let y = 0; y < 8 * 3; y++) {
     for (let x = 0; x < 8 * 3; x++) {
