@@ -17,7 +17,7 @@ function parseInput(lines) {
   lines.forEach((line) => {
     const [foodsStr, allergensStr] = line.split(' (contains ')
     const lineFoods = foodsStr.split(' ')
-    const lineAllergens = allergensStr.slice(0, -1).replace(/,/g, '').split(' ')
+    const lineAllergens = allergensStr.slice(0, -1).split(', ')
     lineFoods.forEach((food) => {
       foodCounts[food] = foodCounts[food] ? foodCounts[food] + 1 : 1
     })
