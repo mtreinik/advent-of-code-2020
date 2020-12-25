@@ -73,7 +73,7 @@ aoc.getResult1 = (lines) => {
 
 function getNeighbor(map, x, y) {
   const pos = getPos(x, y)
-  return (map[pos] === 1) ? 1 : 0
+  return map[pos] === 1 ? 1 : 0
 }
 
 function getMinMax(map) {
