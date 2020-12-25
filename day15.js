@@ -1,34 +1,34 @@
 #!/usr/bin/env node
 const aoc = require('./aoc')
 
-function getNumber(startingNumbers, position) {
+function getNumber(startingNumbers, lastTurn) {
   let turn = 1
   let spoken = 0
   const spokenAt = {}
-  startingNumbers.forEach(startingNumber => {
+  startingNumbers.forEach((startingNumber) => {
     spoken = startingNumber
-    spokenAt[spoken] = {turn: turn, lastTurn: null}
+    spokenAt[spoken] = { turn: turn, lastTurn: null }
     turn++
   })
-  while (turn <= position) {
-    if (!spokenAt[spoken].lastTurn) {
-      spoken = 0
-      const lastTurn = spokenAt[spoken].turn
-      const newObject = {turn: turn, lastTurn: lastTurn}
-      spokenAt[spoken] = newObject
-    } else {
-      spoken = spokenAt[spoken].turn - spokenAt[spoken].lastTurn
-      const lastTurn = spokenAt[spoken] ? spokenAt[spoken].turn : null
-      const newObject = {turn: turn, lastTurn: lastTurn}
-      spokenAt[spoken] = newObject
-    }
+  while (turn <= lastTurn) {
+    spoken = spokenAt[spoken].lastTurn
+      ? spokenAt[spoken].turn - spokenAt[spoken].lastTurn
+      : 0
+    const lastTurn = spokenAt[spoken] ? spokenAt[spoken].turn : null
+    spokenAt[spoken] = { turn: turn, lastTurn: lastTurn }
     if (turn % 1000000 === 0) {
-      console.log('-- turn',turn, 'spoken', spoken, 'memory usage', Object.keys(spokenAt).length)
+      console.log(
+        'turn',
+        turn,
+        'spoken',
+        spoken,
+        'memory usage',
+        Object.keys(spokenAt).length
+      )
     }
     turn++
   }
   return spoken
-
 }
 
 aoc.getResult1 = (lines) => {
